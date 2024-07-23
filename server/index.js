@@ -3,9 +3,9 @@ import cors from "cors";
 import mongoose from "mongoose";
 import "dotenv/config";
 
+import productsData from "./data/productsData.js";
+import teamData from "./data/teamData.js";
 import Product from "./models/Product.js";
-import productsData from "./productsData.js";
-import teamData from "./teamData.js";
 import Team from "./models/Team.js";
 import Review from "./models/Review.js";
 
@@ -80,7 +80,7 @@ app.post("/add-review", async (req, res) => {
 
 app.get("/reviews/:productId", async (req, res) => {
   const { productId } = req.params;
-  const reviews = await Review.find({productId: productId})
+  const reviews = await Review.find({ productId: productId });
   return res.send(reviews);
 });
 
