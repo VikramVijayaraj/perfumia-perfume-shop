@@ -41,11 +41,10 @@
 > - [🚀 Getting Started](#-getting-started)
 >   - [⚙️ Installation](#️-installation)
 >   - [🤖 Running perfumia-perfume-shop](#-running-perfumia-perfume-shop)
->   - [🧪 Tests](#-tests)
-> - [🛠 Project Roadmap](#-project-roadmap)
+> - [🛠 Project Live On](#-project-roadmap)
 > - [🤝 Contributing](#-contributing)
-> - [📄 License](#-license)
-> - [👏 Acknowledgments](#-acknowledgments)
+> - [📄 Screenshots](#-license)
+> - [👏 Feedbacks](#-acknowledgments)
 
 ---
 
@@ -234,12 +233,12 @@ cd perfumia-perfume-shop
 3. Install the dependencies:
 
 ```sh
-cd /server
+cd server/
 npm install
 ```
 
 ```sh
-cd /client
+cd client/
 npm install
 ```
 
@@ -248,12 +247,12 @@ npm install
 Use the following command to run perfumia-perfume-shop:
 
 ```sh
-cd /server
+cd server/
 npm run dev
 ```
 
 ```sh
-cd /client
+cd client/
 npm run dev
 ```
 
