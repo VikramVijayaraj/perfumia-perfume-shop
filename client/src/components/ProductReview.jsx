@@ -17,6 +17,7 @@ function ProductReview() {
     productId: productId,
   });
   const [allReviews, setAllReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const ratingChanged = (newRating) => {
     setUserReview((prevValues) => {
@@ -45,15 +46,17 @@ function ProductReview() {
   }
 
   async function fetchReviews() {
+    setIsLoading(true);
     await axios
       .get(`${API_URL}/reviews/${productId}`)
       .then((response) => setAllReviews(response.data))
       .catch((err) => console.log(err));
+    setIsLoading(false);
   }
 
   useEffect(() => {
     fetchReviews();
-  }, [allReviews]);
+  }, []);
 
   return (
     <div className="px-14">
@@ -64,31 +67,40 @@ function ProductReview() {
         <div className="w-full">
           <h4 className="text-lg font-semibold mb-4">Reviews</h4>
           <hr />
-          {allReviews.length !== 0 ? (
-            <ul className="py-4 overflow-auto">
-              {allReviews &&
-                allReviews.map((review) => (
-                  <li key={review._id} className="flex justify-between mb-6">
-                    <div className="flex gap-5">
-                      <img className="h-12 rounded-full" src={avatar} />
-                      <div>
-                        <p className="mb-5">{review.name}</p>
-                        {/* <p className="text-sm">{review.email}</p> */}
-                        <p>{review.review}</p>
-                      </div>
-                    </div>
-                    <ReactStars
-                      count={5}
-                      value={review.rating}
-                      size={14}
-                      activeColor="#FDA256"
-                      edit={false}
-                    />
-                  </li>
-                ))}
-            </ul>
+          {isLoading ? (
+            <p className="text-center py-10">Loading...</p>
           ) : (
-            <p className="text-sm text-gray-500">No reviews yet</p>
+            <div>
+              {allReviews.length !== 0 ? (
+                <ul className="py-4 overflow-auto">
+                  {allReviews &&
+                    allReviews.map((review) => (
+                      <li
+                        key={review._id}
+                        className="flex justify-between mb-6"
+                      >
+                        <div className="flex gap-5">
+                          <img className="h-12 rounded-full" src={avatar} />
+                          <div>
+                            <p className="mb-5">{review.name}</p>
+                            {/* <p className="text-sm">{review.email}</p> */}
+                            <p>{review.review}</p>
+                          </div>
+                        </div>
+                        <ReactStars
+                          count={5}
+                          value={review.rating}
+                          size={14}
+                          activeColor="#FDA256"
+                          edit={false}
+                        />
+                      </li>
+                    ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-gray-500">No reviews yet</p>
+              )}
+            </div>
           )}
         </div>
 

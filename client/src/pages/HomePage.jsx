@@ -9,12 +9,17 @@ import ProductsList from "../components/ProductsList";
 function HomePage() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [allProducts, setAllProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function fetchProducts() {
+    setIsLoading(true);
+
     await axios
       .get(API_URL + "/all-products")
       .then((response) => setAllProducts(response.data))
       .catch((err) => console.log(err));
+
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -25,7 +30,11 @@ function HomePage() {
     <div className="font-poppins">
       <NavBar />
       <Banner />
-      <ProductsList heading="Featured Products" productData={allProducts} />
+      {isLoading ? (
+        <p className="text-center py-10">Loading...</p>
+      ) : (
+        <ProductsList heading="Featured Products" productData={allProducts} />
+      )}
       <Footer />
     </div>
   );

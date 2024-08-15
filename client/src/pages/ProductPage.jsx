@@ -10,13 +10,18 @@ import ProductGallery from "../components/ProductGallery";
 function ProductPage() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { id: productId } = useParams();
 
   async function fetchProduct() {
+    setIsLoading(true);
+
     await axios
       .get(`${API_URL}/products/${productId}`)
       .then((response) => setProduct(response.data))
       .catch((err) => console.log(err));
+
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -26,7 +31,11 @@ function ProductPage() {
   return (
     <div className="font-poppins">
       <NavBar />
-      <ProductEntry productData={product} />
+      {isLoading ? (
+        <p className="text-center py-10">Loading...</p>
+      ) : (
+        <ProductEntry productData={product} />
+      )}
       <ProductGallery />
       <ProductReview productData={product} />
       <Footer />

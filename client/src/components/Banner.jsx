@@ -5,17 +5,24 @@ import { Link } from "react-router-dom";
 function Banner() {
   const API_URL = import.meta.env.VITE_API_URL;
   const [bannerProduct, setBannerProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   async function fetchProduct() {
+    setIsLoading(true);
     await axios
       .get(API_URL + "/banner-product")
       .then((response) => setBannerProduct(response.data[0]))
       .catch((err) => console.log(err));
+    setIsLoading(false);
   }
 
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  if (isLoading) {
+    return <p className="text-center py-10">Loading...</p>;
+  }
 
   return (
     <div className="h-auto lg:h-[600px] lg:flex justify-between bg-gray-50 px-14 py-14">

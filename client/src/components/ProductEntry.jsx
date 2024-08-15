@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom";
+
 import AddToCart from "./AddToCart";
 import ProductOptions from "./ProductOptions";
 import x_icon from "../assets/icons/x.png";
 import facebook_icon from "../assets/icons/facebook.png";
 import instagram_icon from "../assets/icons/instagram.png";
-import { Link } from "react-router-dom";
 
 function ProductEntry({ productData }) {
   return (
